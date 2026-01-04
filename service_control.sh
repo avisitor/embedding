@@ -1,7 +1,7 @@
 #!/bin/bash
 # Hawaiian Corpus Embedding Service Control Script
 
-SERVICE_NAME="hawaiian-embedding"
+SERVICE_NAME="embedding"
 
 show_help() {
     echo "Hawaiian Corpus Embedding Service Control"
