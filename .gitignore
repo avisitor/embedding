@@ -1,0 +1,8 @@
+.cache/
+__pycache__/
+bin/
+lib/
+lib64
+php_errorlog
+service.log
+share/
