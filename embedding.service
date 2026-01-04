@@ -1,0 +1,21 @@
+[Unit]
+Description=Gunicorn instance to serve Hawaiian Corpus Embedding Service
+After=network.target
+
+[Service]
+User=rweltman
+Group=web-dev
+WorkingDirectory=/var/www/html/embedding_service
+
+# Add this Environment line to point to your venv's site-packages
+# Adjust the 'python3.12' part if your folder name is slightly different
+Environment="PYTHONPATH=/var/www/html/embedding_service/lib/python3.12/site-packages"
+Environment="TRANSFORMERS_CACHE=/var/www/html/embedding_service/.cache"
+
+# Use the symlink or the direct path - both should work now
+ExecStart=/var/www/html/embedding_service/bin/gunicorn --threads 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:5000 embed:app
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
