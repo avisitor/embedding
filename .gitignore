@@ -1,5 +1,6 @@
 .cache/
 __pycache__/
+.pytest_cache/
 bin/
 lib/
 lib64

@@ -7,6 +7,9 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from pydantic import BaseModel, Field
 from sentence_transformers import SentenceTransformer
 import spacy
+from avisitor_utils.logging import setup_logging
+
+logger = setup_logging(__name__)
 
 # --- Schemas (Pydantic) ---
 # This replaces all the manual 'if key in data' checks
@@ -38,11 +41,11 @@ class ModelContainer:
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
 
     def load_models(self):
-        print(f"🔄 Loading models on {self.device}...")
+        logger.info("🔄 Loading models on %s...", self.device)
         self.models['intfloat/multilingual-e5-small'] = SentenceTransformer('intfloat/multilingual-e5-small', device=self.device)
         self.models['intfloat/multilingual-e5-large-instruct'] = SentenceTransformer('intfloat/multilingual-e5-large-instruct', device=self.device)
         self.nlp = spacy.load("en_core_web_sm", disable=["parser"])
-        print("✅ Models ready.")
+        logger.info("✅ Models ready.")
 
 models = ModelContainer()
 
